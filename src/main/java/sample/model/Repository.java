@@ -16,8 +16,6 @@ import java.util.List;
 
 public class Repository {
     private List<Task> tasks = new ArrayList<>();
-    private static DocumentBuilderFactory dbf;
-    private static DocumentBuilder db;
 
     public List<Task> getTasks() {
         return tasks;
@@ -27,26 +25,18 @@ public class Repository {
         this.tasks = tasks;
     }
 
-    static {
-
-        try {
-            dbf = DocumentBuilderFactory.newInstance();
-            db = dbf.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-    }
-
     public Repository() {
         parseXml();
         System.out.print("");
     }
 
     private void parseXml() {
-        File dir = new File(getClass().getClassLoader().getResource("xml").getFile());
-        File[] files = dir.listFiles();
-
         try {
+            File dir = new File(getClass().getClassLoader().getResource("xml").getFile());
+            File[] files = dir.listFiles();
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
 
             for (File file : files) {
 
@@ -75,6 +65,8 @@ public class Repository {
         } catch (SAXException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
 
