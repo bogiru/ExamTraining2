@@ -21,6 +21,16 @@ public class Repository {
         return tasks;
     }
 
+    public Task getTaskByNumber(int number) {
+        for (Task task : tasks) {
+            if (task.getNumber() == number) {
+                return task;
+            }
+        }
+
+        return null;
+    }
+
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
