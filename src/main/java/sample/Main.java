@@ -24,16 +24,6 @@ public class Main extends Application {
         launch(args);
 
         Repository repository = new Repository();
-        for (Task task : repository.getTasks()) {
-            System.out.println("numberTask: " + task.getNumber());
-            for (Variant variant : task.getVariants()) {
-                System.out.println("    numberVariant: " + variant.getNumber());
-                System.out.println("    Question: " + variant.getQuestion());
-                System.out.println("    Answer: " + variant.getAnswer());
-                System.out.println();
-            }
-            //
-            System.out.println("------------------------------------------------------------------------------");
-        }
+
     }
 }

@@ -1,13 +1,16 @@
 package main.java.sample.model;
 
+
 import java.util.List;
 
 public class Task {
+    private int numberPastQustion;
     private int number;
     private List<Variant> variants;
 
-    public Task(int number, List<Variant> variants) {
+    public Task(int number, int numberPastQustion, List<Variant> variants) {
         this.number = number;
+        this.numberPastQustion = numberPastQustion;
         this.variants = variants;
     }
 

@@ -44,7 +44,6 @@ public class Repository {
         try {
             File dir = new File(getClass().getClassLoader().getResource("xml").getFile());
             File[] files = dir.listFiles();
-
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
 
@@ -70,7 +69,7 @@ public class Repository {
                     tempVariants.add(new Variant(numberVariant, question, answer));
                 }
 
-                tasks.add(new Task(numberTask, tempVariants));
+                tasks.add(new Task(numberTask, 2, tempVariants));
             }
         } catch (SAXException e) {
             e.printStackTrace();

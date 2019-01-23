@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <task number="7">
-    <variant number="1">
+    <variant number="1" numberPastQuestion="1">
         <question>запишите словосочетание 'гордо стоял', построенное на основе примыкания, синонимичным словосочетанием со связью управление.</question>
         <answer>стоял с гордостью</answer>
     </variant>
