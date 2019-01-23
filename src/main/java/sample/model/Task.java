@@ -14,6 +14,14 @@ public class Task {
         this.variants = variants;
     }
 
+    public int getNumberPastQustion() {
+        return numberPastQustion;
+    }
+
+    public void setNumberPastQustion(int numberPastQustion) {
+        this.numberPastQustion = numberPastQustion;
+    }
+
     public int getNumber() {
         return number;
     }

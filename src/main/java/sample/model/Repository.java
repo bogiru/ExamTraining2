@@ -1,9 +1,6 @@
 package main.java.sample.model;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -53,6 +50,7 @@ public class Repository {
                 Element element = document.getDocumentElement();
 
                 int numberTask = Integer.parseInt(element.getAttribute("number"));
+                int numberPastVariant = Integer.parseInt(element.getAttribute("numberPastVariant"));
                 List<Variant> tempVariants = new ArrayList<>();
 
                 NodeList nodeVariants = element.getChildNodes();
@@ -69,7 +67,7 @@ public class Repository {
                     tempVariants.add(new Variant(numberVariant, question, answer));
                 }
 
-                tasks.add(new Task(numberTask, 2, tempVariants));
+                tasks.add(new Task(numberTask, numberPastVariant, tempVariants));
             }
         } catch (SAXException e) {
             e.printStackTrace();
@@ -82,4 +80,31 @@ public class Repository {
 
     }
 
+    public void recordScore(int numberTask, int newValue) {
+        try {
+            File dir = new File(getClass().getClassLoader().getResource(String.format("xml/task%d.xml", numberTask)).getFile());
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+
+            Document doc = db.parse(dir);
+            doc.normalize();
+
+            Node nodeTask = doc.getElementsByTagName("variant").item(0);
+            NamedNodeMap attributes = nodeTask.getAttributes();
+
+            Node id = attributes.getNamedItem("number");
+            id.setTextContent("2dfsfgert45");
+
+
+//            element.getAttribute("task");
+        //    element.setAttribute("number", "9");
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -3,17 +3,12 @@ package main.java.sample;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
 import main.java.sample.model.Repository;
 import main.java.sample.model.Task;
 
-import javax.swing.*;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +40,7 @@ public class Controller {
     private Repository repository;
     private int numberTask;
     private int numberVariant = 0;
+    private int numberPastQustion;
 
 
     public Controller() {
@@ -58,8 +54,12 @@ public class Controller {
         chbTask.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                repository.recordScore(getNumberTask(oldValue), numberPastQustion);
+
                 numberTask = getNumberTask(newValue);
                 Task task = repository.getTaskByNumber(numberTask);
+                numberPastQustion = task.getNumberPastQustion();
+
                 allNum.setText(String.valueOf(task.getVariants().size() - 1));
                 textQuestion.setText(task.getVariants().get(numberVariant).getQuestion());
 
@@ -90,6 +90,7 @@ public class Controller {
 
         if (numberVariant < task.getVariants().size() - 1) {
             numberVariant++;
+            numberPastQustion++;
         }
         else {
             message.setText("К сожалению, варианты закончились");

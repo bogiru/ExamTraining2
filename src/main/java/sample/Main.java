@@ -24,6 +24,6 @@ public class Main extends Application {
         launch(args);
 
         Repository repository = new Repository();
-
+        repository.recordScore(7, 3);
     }
 }
