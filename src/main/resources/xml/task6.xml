@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<task number="6" numberPastVariant="1">
+    <variant number="1" >
+        <question>замените книжное слово "воздмездие" стилистически нейтральным синонгимом.</question>
+        <answer>наказание</answer>
+    </variant>
+
+    <variant number="2">
+        <question>замените книжное слово "парнишка" стилистически нейтральным синонгимом.</question>
+        <answer>мальчишка</answer>
+    </variant>
+
+    <variant number="3">
+        <question>замените книжное слово "воротится" стилистически нейтральным синонгимом.</question>
+        <answer>вернется</answer>
+    </variant>
+
+    <variant number="4">
+        <question>замените книжное слово "уставился" стилистически нейтральным синонгимом.</question>
+        <answer>посмотрел</answer>
+    </variant>
+
+    <variant number="5">
+        <question>замените книжное слово "небось" стилистически нейтральным синонгимом.</question>
+        <answer>наверное</answer>
+    </variant>
+
+    <variant number="6">
+        <question>замените книжное слово "раз" стилистически нейтральным синонгимом.</question>
+        <answer>однажды</answer>
+    </variant>
+
+    <variant number="7">
+        <question>замените книжное слово "тошно" стилистически нейтральным синонгимом.</question>
+        <answer>противно</answer>
+    </variant>
+
+    <variant number="8">
+        <question>замените книжное слово "влепил (двойку)" стилистически нейтральным синонгимом.</question>
+        <answer>поставил</answer>
+    </variant>
+
+    <variant number="9">
+        <question>замените книжное слово "влетела (в комнату)" стилистически нейтральным синонгимом.</question>
+        <answer>вошла</answer>
+    </variant>
+
+    <variant number="10">
+        <question>замените книжное слово "смылся" стилистически нейтральным синонгимом.</question>
+        <answer>ушёл</answer>
+    </variant>
+
+    <variant number="11">
+        <question>замените книжное слово "орёт" стилистически нейтральным синонгимом.</question>
+        <answer>кричит</answer>
+    </variant>
+
+    <variant number="12">
+        <question>замените книжное слово "враз" стилистически нейтральным синонгимом.</question>
+        <answer>сразу</answer>
+    </variant>
+
+</task>

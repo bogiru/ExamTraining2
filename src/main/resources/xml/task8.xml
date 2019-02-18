@@ -33,4 +33,61 @@
         </question>
         <answer>убило</answer>
     </variant>
+
+    <variant number="6">
+        <question>Выпишите грамматическую основку предложения:
+            "Лучшего проводника и не придумаешь."
+        </question>
+        <answer>не придумаешь</answer>
+    </variant>
+
+    <variant number="7">
+        <question>Выпишите грамматическую основку предложения:
+            "И её полон трюм."
+        </question>
+        <answer>полон трюм</answer>
+    </variant>
+
+    <variant number="8">
+        <question>Выпишите грамматическую основку предложения:
+            "А может, мне только кажется..."
+        </question>
+        <answer>кажется</answer>
+    </variant>
+
+    <variant number="9">
+        <question>Выпишите грамматическую основку предложения:
+            "Но в саду на скамейке уже не было моего дневника"
+        </question>
+        <answer>не было</answer>
+    </variant>
+
+    <variant number="10">
+        <question>Выпишите грамматическую основку предложения:
+            "В чём я совсем не была виновата"
+        </question>
+        <answer>я не была виновата</answer>
+    </variant>
+
+    <variant number="11">
+        <question>Выпишите грамматическую основку предложения:
+            "Вот как раз недели три тому назад тут перевозчика осколком убило"
+        </question>
+        <answer>убило</answer>
+    </variant>
+
+    <variant number="12">
+        <question>Выпишите грамматическую основку предложения:
+            "Одной шарманкой, без Митьки, на хлеб не заработаешь"
+        </question>
+        <answer>не заработаешь</answer>
+    </variant>
+
+    <variant number="13">
+        <question>Выпишите грамматическую основку предложения:
+            "Снова он был победителем"
+        </question>
+        <answer>он был победителем</answer>
+    </variant>
+
 </task>
