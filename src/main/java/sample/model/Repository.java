@@ -1,20 +1,49 @@
 package main.java.sample.model;
 
+import main.java.sample.Main;
+import org.apache.commons.io.FileUtils;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
+
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class Repository {
     private List<Task> tasks = new ArrayList<>();
+    private static Repository instance;
+
+
+    private Repository() {
+        parseXML();
+    }
+
+    public static synchronized Repository getInstance() {
+        if (instance == null) {
+            instance = new Repository();
+        }
+        return instance;
+    }
 
     public List<Task> getTasks() {
+        tasks.sort(Comparator.comparingInt(Task::getNumber));
+
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                return o1.getNumber() - o2.getNumber();
+            }
+        });
+
         return tasks;
     }
 
@@ -24,7 +53,6 @@ public class Repository {
                 return task;
             }
         }
-
         return null;
     }
 
@@ -32,52 +60,69 @@ public class Repository {
         this.tasks = tasks;
     }
 
-    public Repository() {
-        parseXml();
-        System.out.print("");
-    }
-
-    private void parseXml() {
+    private void parseXML() {
         try {
-            File dir = new File(getClass().getClassLoader().getResource("xml").getFile());
-            File[] files = dir.listFiles();
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
+            final String path = "xml";
+            final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+
+            List<File> files = new ArrayList<>();
+
+            if(jarFile.isFile()) {  // Run with JAR file
+                final JarFile jar = new JarFile(jarFile);
+                final Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
+                while(entries.hasMoreElements()) {
+                    JarEntry entry = entries.nextElement();
+                    final String name = entry.getName();
+                    if (name.startsWith(path + "/task")) { //filter according to the path
+                        InputStream in = jar.getInputStream(entry);
+                        File temp = File.createTempFile("Exam-", "-temp");
+                        FileUtils.copyInputStreamToFile(in, temp);
+                        files.add(temp);
+                        in.close();
+                        temp.deleteOnExit();
+                    }
+                }
+                jar.close();
+
+            } else { // Run with IDE
+                final URL url = Main.class.getResource("/" + path);
+                if (url != null) {
+                    try {
+                        final File xmlFiles = new File(url.toURI());
+                        files.addAll(Arrays.asList(xmlFiles.listFiles()));
+                    } catch (URISyntaxException ex) {
+                        // never happens
+                    }
+                }
+            }
+
+
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
             for (File file : files) {
+                List<Variant> variants = new ArrayList<>();
 
-                Document document = db.parse(file);
-                Element element = document.getDocumentElement();
-
-                int numberTask = Integer.parseInt(element.getAttribute("number"));
-                int numberPastVariant = Integer.parseInt(element.getAttribute("numberPastVariant"));
-                List<Variant> tempVariants = new ArrayList<>();
-
-                NodeList nodeVariants = element.getChildNodes();
-                for (int i = 0; i < nodeVariants.getLength(); i++) {
-                    if (!(nodeVariants.item(i) instanceof Element)) continue;
-
-                    Node nodeVariant = nodeVariants.item(i);
-                    int numberVariant = Integer.parseInt(nodeVariant.getAttributes().getNamedItem("number").getNodeValue());
-                    NodeList nodeList = nodeVariant.getChildNodes();
-
-                    String question = nodeList.item(1).getTextContent();
-                    String answer = nodeList.item(3).getTextContent();
-
-                    tempVariants.add(new Variant(numberVariant, question, answer));
+                Document document = builder.parse(file);
+                NodeList nodeList = document.getElementsByTagName("variant");
+                for (int j = 0; j < nodeList.getLength(); j++) {
+                    Node node = nodeList.item(j);
+                    if (node.getNodeType() == Node.ELEMENT_NODE) {
+                        Element element = (Element) node;
+                        int number = Integer.parseInt(element.getAttribute("number"));
+                        String question = element.getElementsByTagName("question").item(0).getTextContent();
+                        String answer = element.getElementsByTagName("answer").item(0).getTextContent();
+                        variants.add(new Variant(number, question, answer));
+                    }
                 }
 
-                tasks.add(new Task(numberTask, numberPastVariant, tempVariants));
+                Element root = document.getDocumentElement();
+                int num = Integer.parseInt(root.getAttribute("number"));
+                tasks.add(new Task(num, variants));
             }
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
+
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void recordScore(int numberTask, int newValue) {
