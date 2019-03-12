@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import main.java.sample.Controller.MainController;
 import main.java.sample.Controller.RootController;
 import main.java.sample.Controller.StatController;
+import main.java.sample.Controller.TheoryController;
 import main.java.sample.model.Repository;
 import main.java.sample.model.Task;
 import main.java.sample.model.Variant;
@@ -82,6 +83,28 @@ public class Main extends Application {
             stage.setScene(scene);
 
             StatController controller = loader.getController();
+            controller.setMainApp(this);
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initTheoryLayout() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/theory_layout.fxml"));
+            AnchorPane pane = loader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle("Теория");
+            stage.initOwner(primaryStage);
+
+            Scene scene = new Scene(pane);
+            stage.setScene(scene);
+
+            TheoryController controller = loader.getController();
             controller.setMainApp(this);
 
             stage.show();

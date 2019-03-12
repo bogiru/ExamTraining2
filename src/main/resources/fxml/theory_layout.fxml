@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.sample.Controller.TheoryController">
+   <children>
+      <Label fx:id="textTheory" layoutX="75.0" layoutY="57.0" prefHeight="242.0" prefWidth="441.0" wrapText="true" />
+   </children>
+</AnchorPane>

@@ -15,6 +15,11 @@
                         <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Выход" />
                     </items>
                 </Menu>
+            <Menu mnemonicParsing="false">
+               <graphic>
+                  <Label fx:id="menuTheory" onMouseClicked="#handleTheory" text="Теория" />
+               </graphic>
+            </Menu>
                 <Menu mnemonicParsing="false">
                     <graphic>
                         <Label fx:id="menuStat" onMouseClicked="#handleStat" text="Статистика" />
