@@ -59,9 +59,6 @@ public class Repository {
         return null;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
 
     private void parseXML() {
         try {
