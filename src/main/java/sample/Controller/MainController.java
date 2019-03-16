@@ -77,13 +77,14 @@ public class MainController {
         chbTask.setItems(FXCollections.observableArrayList(getTitlesTask()));
 
         Preferences prefs = Preferences.userRoot().node("ExamApp").node("tasks");
+
         currentNumberOfTask = Integer.parseInt(prefs.get("current", "0"));
 
         if (currentNumberOfTask != 0) {
             chbTask.getSelectionModel().select(getIndexOfTask(currentNumberOfTask) + 1);
 
             currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(currentNumberOfTask)).get("variant", null));
-            score = Integer.parseInt(prefs.node(String.valueOf(score)).get("score", null));
+            score = Integer.parseInt(prefs.node(String.valueOf(currentNumberOfTask)).get("score", null));
 
             initUI();
 
@@ -94,15 +95,14 @@ public class MainController {
                     resetUI();
                 } else {
                     currentNumberOfTask = getNumberOfTask(newValue);
-                    currentNumberOfVariant = 1;
-                    score = 0;
+                    currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(currentNumberOfTask)).get("variant", null));
+                    score = Integer.parseInt(prefs.node(String.valueOf(currentNumberOfTask)).get("score", null));
 
                     initUI();
-
                 }
             });
 
-        }else {
+        } else {
             chbTask.getSelectionModel().selectFirst();
 
             chbTask.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -125,7 +125,7 @@ public class MainController {
         Task currentTask = repository.getTaskByNumber(currentNumberOfTask);
         currentNum.setText(String.valueOf(currentNumberOfVariant));
         allNum.setText(String.valueOf(currentTask.getVariants().size()));
-        textQuestion.setText(currentTask.getVariants().get(currentNumberOfVariant - 1).getQuestion());
+        textQuestion.setText(currentTask.getVariants().get(currentNumberOfVariant).getQuestion());
         textResult.setText("");
         btnAnswer.setDisable(false);
         btnNext.setDisable(false);

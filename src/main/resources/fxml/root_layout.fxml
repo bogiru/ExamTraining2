@@ -24,6 +24,11 @@
                     <graphic>
                         <Label fx:id="menuStat" onMouseClicked="#handleStat" text="Статистика" />
                     </graphic></Menu>
+            <Menu mnemonicParsing="false">
+               <graphic>
+                  <Label fx:id="menuReset" onMouseClicked="#handleReset" text="Сбросить прогресс" />
+               </graphic>
+            </Menu>
                 <Menu mnemonicParsing="false" onAction="#handleAbout">
                     <graphic>
                         <Label onMouseClicked="#handleAbout" text="О программе" />

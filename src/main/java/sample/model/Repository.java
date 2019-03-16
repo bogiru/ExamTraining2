@@ -137,11 +137,10 @@ public class Repository {
                 Preferences prefs = preferences.node("tasks");
                 List<Task> tasks = getTasks();
                 for (Task task : tasks) {
-                    Preferences node = prefs.node("task");
+                    Preferences node = prefs.node(String.valueOf(task.getNumber()));
                     node.put("variant", "1");
                     node.put("score", "0");
                 }
-
                 if (prefs.get("current", null) == null) {
                     prefs.put("current", "0");
                 }
@@ -151,31 +150,4 @@ public class Repository {
         }
     }
 
-    public void recordScore(int numberTask, int newValue) {
-        try {
-            File dir = new File(getClass().getClassLoader().getResource(String.format("xml/task%d.xml", numberTask)).getFile());
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-
-            Document doc = db.parse(dir);
-            doc.normalize();
-
-            Node nodeTask = doc.getElementsByTagName("variant").item(0);
-            NamedNodeMap attributes = nodeTask.getAttributes();
-
-            Node id = attributes.getNamedItem("number");
-            id.setTextContent("2dfsfgert45");
-
-
-//            element.getAttribute("task");
-        //    element.setAttribute("number", "9");
-
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
