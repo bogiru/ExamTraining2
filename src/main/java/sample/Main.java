@@ -113,7 +113,7 @@ public class Main extends Application {
             StatController controller = loader.getController();
 
             saveState();
-            controller.statDraw();
+            controller.initChoiceBox();
             controller.setMainApp(this);
 
 

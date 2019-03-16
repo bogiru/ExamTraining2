@@ -11,27 +11,28 @@
 
 <AnchorPane prefHeight="330.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.sample.Controller.StatController">
    <children>
-      <Label fx:id="allAnswerText" layoutX="22.0" layoutY="81.0" prefHeight="81.0" prefWidth="514.0" text="TRYRTY">
+      <Label layoutX="22.0" layoutY="81.0" prefHeight="81.0" prefWidth="514.0" text="Количество решённых вариантов:">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="trueAnswerText" layoutX="22.0" layoutY="149.0" prefHeight="81.0" prefWidth="441.0" text="T" textAlignment="CENTER">
+      <Label layoutX="22.0" layoutY="149.0" prefHeight="81.0" prefWidth="441.0" text="Количество правильных ответов:" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="progressText" layoutX="22.0" layoutY="214.0" prefHeight="81.0" prefWidth="609.0" text="Общий прогресс:">
+      <ProgressIndicator fx:id="progressIndicator" layoutX="452.0" layoutY="102.0" prefHeight="127.0" prefWidth="156.0" progress="0.0" />
+      <ChoiceBox fx:id="choiceBox" layoutX="83.0" layoutY="28.0" prefHeight="25.0" prefWidth="470.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Line endX="100.0" layoutX="316.0" layoutY="68.0" startX="-100.0" stroke="#0e064d" />
+      <Label fx:id="allAnswerText" layoutX="417.0" layoutY="79.0" prefHeight="87.0" prefWidth="50.0" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ProgressIndicator fx:id="progressIndicator" layoutX="52.0" layoutY="222.0" prefHeight="81.0" prefWidth="455.0" progress="0.55" />
-      <Label fx:id="numberTaskText" layoutX="210.0" prefHeight="81.0" prefWidth="233.0" textAlignment="CENTER" textFill="#2709bc">
+      <Label fx:id="trueAnswerText" layoutX="417.0" layoutY="149.0" prefHeight="81.0" prefWidth="50.0" textAlignment="RIGHT">
          <font>
-            <Font name="System Italic" size="24.0" />
+            <Font size="24.0" />
          </font>
       </Label>
-      <Line endX="100.0" layoutX="280.0" layoutY="68.0" startX="-100.0" strokeMiterLimit="1.0" strokeWidth="2.0" AnchorPane.leftAnchor="179.0" AnchorPane.rightAnchor="250.0" />
    </children>
 </AnchorPane>

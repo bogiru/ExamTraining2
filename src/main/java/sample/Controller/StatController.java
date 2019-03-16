@@ -1,14 +1,19 @@
 package main.java.sample.Controller;
 
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.Background;
 import main.java.sample.Main;
 import main.java.sample.model.Repository;
+import main.java.sample.model.Task;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.Preferences;
 
 
@@ -22,7 +27,7 @@ public class StatController {
     private ProgressIndicator progressIndicator;
 
     @FXML
-    private Label numberTaskText;
+    private ChoiceBox choiceBox;
 
     @FXML
     private Label allAnswerText;
@@ -39,20 +44,43 @@ public class StatController {
     }
 
 
-    public void statDraw() {
+    public void initChoiceBox() {
+        choiceBox.setItems(FXCollections.observableArrayList(getTitlesTask()));
+        choiceBox.getSelectionModel().selectFirst();
+
+        choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            statDraw(getNumberTask(String.valueOf(newValue)));
+        });
+
+    }
+
+    private List<String> getTitlesTask() {
+        List<String> list = new ArrayList<String>();
+        list.add("Выберите задание");
+        for (Task task : repository.getTasks()) {
+            list.add(String.format("Задание №%d", task.getNumber()));
+        }
+        return list;
+    }
+
+    private int getNumberTask(String titleTask) {
+        return Integer.parseInt(titleTask.split("№")[1]);
+    }
+
+    private void statDraw(int numberTask) {
         Preferences prefs = Preferences.userRoot().node("ExamApp").node("tasks");
-        int current = Integer.parseInt(prefs.get("current", null));
+        //int current = Integer.parseInt(prefs.get("current", null));
 
-        int currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(current)).get("variant", null));
-        int score = Integer.parseInt(prefs.node(String.valueOf(current)).get("score", null));
+        int currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(numberTask)).get("variant", null));
+        int score = Integer.parseInt(prefs.node(String.valueOf(numberTask)).get("score", null));
 
-        draw(current, currentNumberOfVariant, score, (double) score / currentNumberOfVariant);
+        draw(numberTask, currentNumberOfVariant, score, (double) score / currentNumberOfVariant);
     }
 
     private void draw(int numberTask, int currentNumberOfVariant, int score, double progress) {
-        numberTaskText.setText(String.format("Задание №%d", numberTask));
-        allAnswerText.setText(String.format("Количество решённых вариантов: %d", currentNumberOfVariant));
-        trueAnswerText.setText(String.format("Количество правильных ответов: %d", score));
+       // numberTaskText.setText(String.format("Задание №%d", numberTask));
+        allAnswerText.setText(String.format(String.valueOf(currentNumberOfVariant)));
+        trueAnswerText.setText(String.valueOf(score));
         System.out.println(progress);
         progressIndicator.setProgress(progress);
         progressIndicator.setStyle(String.format("-fx-accent: %s;", colorSelection(progress)));
