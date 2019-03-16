@@ -28,6 +28,7 @@ public class Repository {
 
     private Repository() {
         parseXML();
+        initPreferences();
     }
 
     public static synchronized Repository getInstance() {

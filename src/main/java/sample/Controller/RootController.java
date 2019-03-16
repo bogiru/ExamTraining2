@@ -64,7 +64,7 @@ public class RootController {
         List<Task> tasks = repository.getTasks();
         for (Task task : tasks) {
             Preferences node = prefs.node(String.valueOf(task.getNumber()));
-            node.put("variant", "0");
+            node.put("variant", "1");
             node.put("score", "0");
         }
 

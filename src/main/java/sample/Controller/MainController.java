@@ -125,7 +125,7 @@ public class MainController {
         Task currentTask = repository.getTaskByNumber(currentNumberOfTask);
         currentNum.setText(String.valueOf(currentNumberOfVariant));
         allNum.setText(String.valueOf(currentTask.getVariants().size()));
-        textQuestion.setText(currentTask.getVariants().get(currentNumberOfVariant).getQuestion());
+        textQuestion.setText(currentTask.getVariants().get(currentNumberOfVariant - 1).getQuestion());
         textResult.setText("");
         btnAnswer.setDisable(false);
         btnNext.setDisable(false);
