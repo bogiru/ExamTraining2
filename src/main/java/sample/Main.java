@@ -125,6 +125,7 @@ public class Main extends Application {
 
     public void initTheoryLayout() {
         try {
+            saveState();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/theory_layout.fxml"));
             AnchorPane pane = loader.load();
 
@@ -135,6 +136,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(pane);
             stage.setScene(scene);
+
 
             TheoryController controller = loader.getController();
             controller.setMainApp(this);

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -8,6 +10,18 @@
 
 <AnchorPane prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.sample.Controller.TheoryController">
    <children>
-      <Label fx:id="textTheory" layoutX="75.0" layoutY="57.0" prefHeight="242.0" prefWidth="441.0" wrapText="true" />
+      <ScrollPane prefHeight="523.0" prefWidth="600.0" vmax="10.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="609.0">
+               <children>
+                  <Label fx:id="textTheory" alignment="TOP_LEFT" layoutX="23.0" layoutY="14.0" prefHeight="2999.0" prefWidth="558.0" text="fdgdf" wrapText="true">
+                     <font>
+                        <Font name="Gabriola" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

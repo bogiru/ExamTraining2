@@ -27,7 +27,7 @@ public class TheoryController {
     private void initialize() {
         Preferences prefs = Preferences.userRoot().node("ExamApp").node("tasks");
         int current = Integer.parseInt(prefs.get("current", "0"));
-        textTheory.setText(repository.getTaskByNumber(current).getTheory());
+        textTheory.setText(repository.getTaskByNumber(current).getTheory().trim());
     }
 
 }

@@ -71,8 +71,9 @@ public class StatController {
         Preferences prefs = Preferences.userRoot().node("ExamApp").node("tasks");
         //int current = Integer.parseInt(prefs.get("current", null));
 
-        int currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(numberTask)).get("variant", null));
+        int currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(numberTask)).get("variant", null)) - 1;
         int score = Integer.parseInt(prefs.node(String.valueOf(numberTask)).get("score", null));
+
 
         draw(numberTask, currentNumberOfVariant, score, (double) score / currentNumberOfVariant);
     }
@@ -85,23 +86,28 @@ public class StatController {
         progressIndicator.setProgress(progress);
         progressIndicator.setStyle(String.format("-fx-accent: %s;", colorSelection(progress)));
 
+
     }
 
     private String colorSelection(double progress) {
         if (progress <= 0.25) {
-            return "darkred";
+            return "Maroon";
         }
 
         if (progress <= 0.5) {
-            return "chocolate";
+            return "e20104";
         }
 
         if (progress <= 0.75) {
-            return "orange";
+            return "#d76e00";
+        }
+
+        if (progress < 0.9) {
+            return "#fdd524";
         }
 
         if (progress >= 0.9) {
-            return "green";
+            return "DarkGreen";
         }
 
         return null;
