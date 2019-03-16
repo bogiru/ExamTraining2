@@ -42,7 +42,15 @@ public class RootController {
 
     @FXML
     private void handleExit() {
-        System.exit(0);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Выход");
+        alert.setHeaderText("Вы точно хотите выйти?");
+
+        Optional<ButtonType> type = alert.showAndWait();
+        if (type.get() == ButtonType.OK) {
+            System.exit(0);
+        }
+
     }
 
     @FXML
