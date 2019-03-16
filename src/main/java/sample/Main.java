@@ -2,7 +2,6 @@ package main.java.sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -13,16 +12,16 @@ import main.java.sample.Controller.MainController;
 import main.java.sample.Controller.RootController;
 import main.java.sample.Controller.StatController;
 import main.java.sample.Controller.TheoryController;
-import main.java.sample.model.Repository;
-import main.java.sample.model.Task;
-import main.java.sample.model.Variant;
 
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 public class Main extends Application {
 
     private BorderPane rootLayout;
     private Stage primaryStage;
+
+    private MainController mainController;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -62,8 +61,8 @@ public class Main extends Application {
 
             rootLayout.setCenter(pane);
 
-            MainController controller = loader.getController();
-            controller.setMainApp(this);
+            mainController = loader.getController();
+            mainController.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,6 +110,25 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void reset() {
+        initMainLayout();
+        mainController.reset();
+    }
+
+    private void saveState() {
+        Preferences preferences = Preferences.userRoot().node("ExamApp").node("tasks");
+        preferences.put("current", String.valueOf(mainController.getCurrentNumberOfTask()));
+        preferences.node(String.valueOf(mainController.getCurrentNumberOfTask())).put("variant", String.valueOf(mainController.getCurrentNumberOfVariant()));
+        preferences.node(String.valueOf(mainController.getCurrentNumberOfTask())).put("score", String.valueOf(mainController.getScore()));
+    }
+
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        saveState();
     }
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package main.java.sample.model;
 
+import com.sun.scenario.effect.impl.prism.PrEffectHelper;
 import main.java.sample.Main;
 import org.apache.commons.io.FileUtils;
 import org.w3c.dom.*;
@@ -17,6 +18,8 @@ import java.net.URL;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 public class Repository {
     private List<Task> tasks = new ArrayList<>();
@@ -99,6 +102,7 @@ public class Repository {
 
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
+
             for (File file : files) {
                 List<Variant> variants = new ArrayList<>();
 
@@ -117,11 +121,32 @@ public class Repository {
 
                 Element root = document.getDocumentElement();
                 int num = Integer.parseInt(root.getAttribute("number"));
-                String theory = String.valueOf(root.getElementsByTagName("theory"));
+                String theory = (root.getElementsByTagName("theory").item(0).getTextContent());
                 tasks.add(new Task(num, variants, theory));
             }
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initPreferences() {
+        Preferences preferences = Preferences.userRoot().node("ExamApp");
+        try {
+            if (!preferences.nodeExists("tasks")) {
+                Preferences prefs = preferences.node("tasks");
+                List<Task> tasks = getTasks();
+                for (Task task : tasks) {
+                    Preferences node = prefs.node("task");
+                    node.put("variant", "1");
+                    node.put("score", "0");
+                }
+
+                if (prefs.get("current", null) == null) {
+                    prefs.put("current", "0");
+                }
+            }
+        } catch (BackingStoreException e) {
             e.printStackTrace();
         }
     }

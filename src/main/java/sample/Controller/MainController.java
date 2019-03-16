@@ -10,6 +10,7 @@ import main.java.sample.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 public class MainController {
 
@@ -54,6 +55,18 @@ public class MainController {
         this.mainApp = mainApp;
     }
 
+    public int getCurrentNumberOfVariant() {
+        return currentNumberOfVariant;
+    }
+
+    public int getCurrentNumberOfTask() {
+        return currentNumberOfTask;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
     @FXML
     private void initialize() {
         initChoiceBox();
@@ -62,26 +75,78 @@ public class MainController {
 
     private void initChoiceBox() {
         chbTask.setItems(FXCollections.observableArrayList(getTitlesTask()));
-        chbTask.getSelectionModel().selectFirst();
 
-        chbTask.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals("Выберите задание")) {
-                textQuestion.setText("");
-                btnAnswer.setDisable(true);
-                btnNext.setDisable(true);
-            } else {
-                currentNumberOfTask = getNumberTask(newValue);
-                currentNumberOfVariant = 1;
-                currentNum.setText(String.valueOf(currentNumberOfVariant));
-                Task task = repository.getTaskByNumber(getNumberTask(newValue));
-                allNum.setText(String.valueOf(task.getVariants().size()));
-                textQuestion.setText(task.getVariants().get(currentNumberOfVariant - 1).getQuestion());
-                btnNext.setDisable(false);
-                btnAnswer.setDisable(false);
-                textResult.setText("");
-                score = 0;
-            }
-        });
+        Preferences prefs = Preferences.userRoot().node("ExamApp").node("tasks");
+        currentNumberOfTask = Integer.parseInt(prefs.get("current", "0"));
+
+        if (currentNumberOfTask != 0) {
+            chbTask.getSelectionModel().select(getIndexOfTask(currentNumberOfTask) + 1);
+
+            currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(currentNumberOfTask)).get("variant", null));
+            score = Integer.parseInt(prefs.node(String.valueOf(score)).get("score", null));
+
+            initUI();
+
+            chbTask.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                saveStat(currentNumberOfTask, currentNumberOfVariant, score);
+
+                if (newValue.equals("Выберите задание")) {
+                    resetUI();
+                } else {
+                    currentNumberOfTask = getNumberOfTask(newValue);
+                    currentNumberOfVariant = 1;
+                    score = 0;
+
+                    initUI();
+
+                }
+            });
+
+        }else {
+            chbTask.getSelectionModel().selectFirst();
+
+            chbTask.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                saveStat(currentNumberOfTask, currentNumberOfVariant, score);
+
+                if (newValue.equals("Выберите задание")) {
+                    resetUI();
+                } else {
+                    currentNumberOfTask = getNumberOfTask(newValue);
+                    currentNumberOfVariant = 1;
+                    score = 0;
+
+                    initUI();
+                }
+            });
+        }
+    }
+
+    private void initUI() {
+        Task currentTask = repository.getTaskByNumber(currentNumberOfTask);
+        currentNum.setText(String.valueOf(currentNumberOfVariant));
+        allNum.setText(String.valueOf(currentTask.getVariants().size()));
+        textQuestion.setText(currentTask.getVariants().get(currentNumberOfVariant - 1).getQuestion());
+        textResult.setText("");
+        btnAnswer.setDisable(false);
+        btnNext.setDisable(false);
+    }
+
+    private void resetUI() {
+        textQuestion.setText("");
+        currentNum.setText("0");
+        allNum.setText("0");
+        btnAnswer.setDisable(true);
+        btnNext.setDisable(true);
+    }
+
+    private int getNumberOfTask(String titleTask) {
+        return Integer.parseInt(titleTask.split("№")[1]);
+    }
+
+    private void saveStat(int task, int variant, int score) {
+        Preferences prefs = Preferences.userRoot().node("ExamApp").node("tasks").node(String.valueOf(task));
+        prefs.put("variant", String.valueOf(variant));
+        prefs.put("score", String.valueOf(score));
     }
 
     private void initButtons() {
@@ -135,6 +200,22 @@ public class MainController {
         }
         return list;
     }
+
+    private int getIndexOfTask(int numberOfTask) {
+        List<Task> tasks = repository.getTasks();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getNumber() == numberOfTask) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public void reset() {
+        chbTask.getSelectionModel().selectFirst();
+        resetUI();
+    }
+
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
