@@ -111,7 +111,11 @@ public class Main extends Application {
             stage.setScene(scene);
 
             StatController controller = loader.getController();
+
+            saveState();
+            controller.statDraw();
             controller.setMainApp(this);
+
 
             stage.show();
         } catch (IOException e) {
@@ -152,12 +156,6 @@ public class Main extends Application {
         preferences.node(String.valueOf(mainController.getCurrentNumberOfTask())).put("variant", String.valueOf(mainController.getCurrentNumberOfVariant()));
         preferences.node(String.valueOf(mainController.getCurrentNumberOfTask())).put("score", String.valueOf(mainController.getScore()));
     }
-
-
-    /*@Override
-    public void stop() throws Exception {
-
-    }*/
 
     public static void main(String[] args) {
         launch(args);

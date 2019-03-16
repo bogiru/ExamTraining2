@@ -76,7 +76,6 @@ public class RootController {
             node.put("score", "0");
         }
 
-        prefs.put("current", "0");
 
         mainApp.reset();
 

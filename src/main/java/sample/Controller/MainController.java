@@ -73,6 +73,7 @@ public class MainController {
         initButtons();
     }
 
+
     private void initChoiceBox() {
         chbTask.setItems(FXCollections.observableArrayList(getTitlesTask()));
 
