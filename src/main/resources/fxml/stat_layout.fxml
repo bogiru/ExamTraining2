@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.chart.*?>
 <?import java.lang.*?>
@@ -8,23 +9,29 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="269.0" prefWidth="528.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.sample.Controller.StatController">
+<AnchorPane prefHeight="330.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.sample.Controller.StatController">
    <children>
-      <Label fx:id="allAnswerText" layoutX="22.0" layoutY="-6.0" prefHeight="81.0" prefWidth="514.0" text="Количество решённых вариантов: ">
+      <Label fx:id="allAnswerText" layoutX="22.0" layoutY="81.0" prefHeight="81.0" prefWidth="514.0" text="TRYRTY">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="trueAnswerText" layoutX="22.0" layoutY="58.0" prefHeight="81.0" prefWidth="441.0" text="Количество правильных ответов: " textAlignment="CENTER">
+      <Label fx:id="trueAnswerText" layoutX="22.0" layoutY="149.0" prefHeight="81.0" prefWidth="441.0" text="T" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="progressText" layoutX="22.0" layoutY="127.0" prefHeight="81.0" prefWidth="609.0" text="Общий прогресс:">
+      <Label fx:id="progressText" layoutX="22.0" layoutY="214.0" prefHeight="81.0" prefWidth="609.0" text="Общий прогресс:">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ProgressIndicator fx:id="progressIndicator" layoutX="52.0" layoutY="135.0" prefHeight="81.0" prefWidth="455.0" progress="0.55" />
+      <ProgressIndicator fx:id="progressIndicator" layoutX="52.0" layoutY="222.0" prefHeight="81.0" prefWidth="455.0" progress="0.55" />
+      <Label fx:id="numberTaskText" layoutX="210.0" prefHeight="81.0" prefWidth="233.0" textAlignment="CENTER" textFill="#2709bc">
+         <font>
+            <Font name="System Italic" size="24.0" />
+         </font>
+      </Label>
+      <Line endX="100.0" layoutX="280.0" layoutY="68.0" startX="-100.0" strokeMiterLimit="1.0" strokeWidth="2.0" AnchorPane.leftAnchor="179.0" AnchorPane.rightAnchor="250.0" />
    </children>
 </AnchorPane>

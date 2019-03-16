@@ -22,6 +22,9 @@ public class StatController {
     private ProgressIndicator progressIndicator;
 
     @FXML
+    private Label numberTaskText;
+
+    @FXML
     private Label allAnswerText;
 
     @FXML
@@ -43,10 +46,11 @@ public class StatController {
         int currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(current)).get("variant", null));
         int score = Integer.parseInt(prefs.node(String.valueOf(current)).get("score", null));
 
-        draw(currentNumberOfVariant, score, (double) score / currentNumberOfVariant);
+        draw(current, currentNumberOfVariant, score, (double) score / currentNumberOfVariant);
     }
 
-    private void draw(int currentNumberOfVariant, int score, double progress) {
+    private void draw(int numberTask, int currentNumberOfVariant, int score, double progress) {
+        numberTaskText.setText(String.format("Задание №%d", numberTask));
         allAnswerText.setText(String.format("Количество решённых вариантов: %d", currentNumberOfVariant));
         trueAnswerText.setText(String.format("Количество правильных ответов: %d", score));
         System.out.println(progress);
