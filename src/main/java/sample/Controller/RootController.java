@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import main.java.sample.Main;
 import main.java.sample.model.Repository;
 import main.java.sample.model.Task;

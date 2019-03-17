@@ -7,6 +7,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import main.java.sample.Main;
 import main.java.sample.model.Repository;
@@ -25,6 +27,9 @@ public class StatController {
 
     @FXML
     private ProgressIndicator progressIndicator;
+
+    @FXML
+    private ImageView image;
 
     @FXML
     private ChoiceBox choiceBox;
@@ -49,7 +54,16 @@ public class StatController {
         choiceBox.getSelectionModel().selectFirst();
 
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            statDraw(getNumberTask(String.valueOf(newValue)));
+
+            if (newValue.equals("Выберите задание")) {
+                progressIndicator.setVisible(false);
+                allAnswerText.setText("");
+                trueAnswerText.setText("");
+            }else {
+                progressIndicator.setVisible(true);
+                statDraw(getNumberTask(String.valueOf(newValue)));
+            }
+
         });
 
     }
@@ -69,7 +83,6 @@ public class StatController {
 
     private void statDraw(int numberTask) {
         Preferences prefs = Preferences.userRoot().node("ExamApp").node("tasks");
-        //int current = Integer.parseInt(prefs.get("current", null));
 
         int currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(numberTask)).get("variant", null)) - 1;
         int score = Integer.parseInt(prefs.node(String.valueOf(numberTask)).get("score", null));
@@ -79,13 +92,19 @@ public class StatController {
     }
 
     private void draw(int numberTask, int currentNumberOfVariant, int score, double progress) {
-       // numberTaskText.setText(String.format("Задание №%d", numberTask));
         allAnswerText.setText(String.format(String.valueOf(currentNumberOfVariant)));
         trueAnswerText.setText(String.valueOf(score));
         System.out.println(progress);
         progressIndicator.setProgress(progress);
-        progressIndicator.setStyle(String.format("-fx-accent: %s;", colorSelection(progress)));
 
+        String color = colorSelection(progress);
+        if (color != null) {
+            progressIndicator.setStyle(String.format("-fx-accent: %s;", colorSelection(progress)));
+        }else {
+            progressIndicator.setVisible(false);
+            System.out.println(getClass().getClassLoader().getResource("images/two.png"));
+            image.setImage(new Image(String.valueOf(getClass().getClassLoader().getResource("images/two.png"))));
+    }
 
     }
 

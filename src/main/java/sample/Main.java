@@ -106,6 +106,7 @@ public class Main extends Application {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setTitle("Статистика");
             stage.initOwner(primaryStage);
+            stage.getIcons().add(new Image(getClass().getClassLoader().getResource("images/favicon.png").toString()));
 
             Scene scene = new Scene(pane);
             stage.setScene(scene);
@@ -133,6 +134,7 @@ public class Main extends Application {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setTitle("Теория");
             stage.initOwner(primaryStage);
+            stage.getIcons().add(new Image(getClass().getClassLoader().getResource("images/favicon.png").toString()));
 
             Scene scene = new Scene(pane);
             stage.setScene(scene);
