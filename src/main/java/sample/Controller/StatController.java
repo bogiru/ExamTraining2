@@ -102,8 +102,8 @@ public class StatController {
             progressIndicator.setStyle(String.format("-fx-accent: %s;", colorSelection(progress)));
         }else {
             progressIndicator.setVisible(false);
-            System.out.println(getClass().getClassLoader().getResource("images/two.png"));
-            image.setImage(new Image(String.valueOf(getClass().getClassLoader().getResource("images/two.png"))));
+           // System.out.println(getClass().getClassLoader().getResource("images/two.png"));
+         //   image.setImage(new Image(String.valueOf(getClass().getClassLoader().getResource("images/two.png"))));
     }
 
     }
