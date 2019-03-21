@@ -1,6 +1,8 @@
 package main.java.sample.model;
 
 
+import sample.model.Variant;
+
 import java.util.List;
 
 public class Task {

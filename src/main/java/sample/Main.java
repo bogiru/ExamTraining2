@@ -1,4 +1,4 @@
-package main.java.sample;
+package sample;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -12,10 +12,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import main.java.sample.Controller.MainController;
-import main.java.sample.Controller.RootController;
-import main.java.sample.Controller.StatController;
-import main.java.sample.Controller.TheoryController;
+import sample.Controller.MainController;
+import sample.Controller.RootController;
+import sample.Controller.StatController;
+import sample.Controller.TheoryController;
 
 import java.io.IOException;
 import java.util.Optional;

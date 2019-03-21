@@ -1,11 +1,11 @@
-package main.java.sample.model;
+package sample.model;
 
-import com.sun.scenario.effect.impl.prism.PrEffectHelper;
-import main.java.sample.Main;
 import org.apache.commons.io.FileUtils;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
+import main.java.sample.model.Task;
+import sample.Main;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,7 +22,7 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 public class Repository {
-    private List<Task> tasks = new ArrayList<>();
+    private List<main.java.sample.model.Task> tasks = new ArrayList<>();
     private static Repository instance;
 
 

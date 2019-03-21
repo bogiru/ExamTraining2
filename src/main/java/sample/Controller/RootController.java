@@ -1,13 +1,12 @@
-package main.java.sample.Controller;
+package sample.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import main.java.sample.Main;
-import main.java.sample.model.Repository;
 import main.java.sample.model.Task;
+import sample.Main;
+import sample.model.Repository;
 
 import java.util.List;
 import java.util.Optional;

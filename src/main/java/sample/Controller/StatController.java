@@ -1,18 +1,14 @@
-package main.java.sample.Controller;
+package sample.Controller;
 
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import main.java.sample.Main;
-import main.java.sample.model.Repository;
 import main.java.sample.model.Task;
+import sample.Main;
+import sample.model.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +23,6 @@ public class StatController {
 
     @FXML
     private ProgressIndicator progressIndicator;
-
-    @FXML
-    private ImageView image;
 
     @FXML
     private ChoiceBox choiceBox;
@@ -97,15 +90,7 @@ public class StatController {
         System.out.println(progress);
         progressIndicator.setProgress(progress);
 
-        String color = colorSelection(progress);
-        if (color != null) {
-            progressIndicator.setStyle(String.format("-fx-accent: %s;", colorSelection(progress)));
-        }else {
-            progressIndicator.setVisible(false);
-           // System.out.println(getClass().getClassLoader().getResource("images/two.png"));
-         //   image.setImage(new Image(String.valueOf(getClass().getClassLoader().getResource("images/two.png"))));
-    }
-
+        progressIndicator.setStyle(String.format("-fx-accent: %s;", colorSelection(progress)));
     }
 
     private String colorSelection(double progress) {

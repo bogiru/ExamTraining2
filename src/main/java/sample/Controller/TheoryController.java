@@ -1,9 +1,9 @@
-package main.java.sample.Controller;
+package sample.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import main.java.sample.Main;
-import main.java.sample.model.Repository;
+import sample.Main;
+import sample.model.Repository;
 
 import java.util.prefs.Preferences;
 
