@@ -34,6 +34,8 @@ public class Main extends Application {
         this.primaryStage.setTitle("ExamTraining");
         this.primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResource("images/favicon.png").toString()));
 
+        this.primaryStage.setResizable(false);
+
         initRootLayout();
 
         initMainLayout();
@@ -114,7 +116,6 @@ public class Main extends Application {
             StatController controller = loader.getController();
 
             saveState();
-            controller.initChoiceBox();
             controller.setMainApp(this);
 
 

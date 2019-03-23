@@ -2,10 +2,11 @@ package sample.Controller;
 
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
 import main.java.sample.model.Task;
 import sample.Main;
 import sample.model.Repository;
@@ -18,11 +19,10 @@ import java.util.prefs.Preferences;
 public class StatController {
 
     private Main mainApp;
-
     private Repository repository;
 
-    @FXML
-    private ProgressIndicator progressIndicator;
+    private int currentNumberOfVariant;
+    private int score;
 
     @FXML
     private ChoiceBox choiceBox;
@@ -33,6 +33,9 @@ public class StatController {
     @FXML
     private Label trueAnswerText;
 
+    @FXML
+    private PieChart chart;
+
     public StatController() {
         repository = Repository.getInstance();
     }
@@ -41,6 +44,10 @@ public class StatController {
         this.mainApp = mainApp;
     }
 
+    @FXML
+    private void initialize() {
+        initChoiceBox();
+    }
 
     public void initChoiceBox() {
         choiceBox.setItems(FXCollections.observableArrayList(getTitlesTask()));
@@ -49,18 +56,27 @@ public class StatController {
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
             if (newValue.equals("Выберите задание")) {
-                progressIndicator.setVisible(false);
-                allAnswerText.setText("");
-                trueAnswerText.setText("");
+                resetUI();
             }else {
-                progressIndicator.setVisible(true);
-                statDraw(getNumberTask(String.valueOf(newValue)));
+                initUI(getNumberTask(String.valueOf(newValue)));
+
+                float correctPercent = score * 100 / currentNumberOfVariant;
+                float uncorrectPercent = 100 - correctPercent;
+
+                ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList(
+                        new PieChart.Data("Правильные", correctPercent),
+                        new PieChart.Data("Неправильные", uncorrectPercent)
+                );
+                chart.setData(chartData);
             }
 
         });
 
     }
 
+    private void resetUI() {
+        draw(0, 0);
+    }
     private List<String> getTitlesTask() {
         List<String> list = new ArrayList<String>();
         list.add("Выберите задание");
@@ -74,47 +90,19 @@ public class StatController {
         return Integer.parseInt(titleTask.split("№")[1]);
     }
 
-    private void statDraw(int numberTask) {
+    private void initUI(int numberTask) {
         Preferences prefs = Preferences.userRoot().node("ExamApp").node("tasks");
 
-        int currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(numberTask)).get("variant", null)) - 1;
-        int score = Integer.parseInt(prefs.node(String.valueOf(numberTask)).get("score", null));
+        currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(numberTask)).get("variant", null));
+        score = Integer.parseInt(prefs.node(String.valueOf(numberTask)).get("score", null));
 
 
-        draw(numberTask, currentNumberOfVariant, score, (double) score / currentNumberOfVariant);
+        draw(currentNumberOfVariant, score);
     }
 
-    private void draw(int numberTask, int currentNumberOfVariant, int score, double progress) {
-        allAnswerText.setText(String.format(String.valueOf(currentNumberOfVariant)));
+    private void draw(int currentNumberOfVariant, int score) {
+        allAnswerText.setText(String.valueOf(currentNumberOfVariant));
         trueAnswerText.setText(String.valueOf(score));
-        System.out.println(progress);
-        progressIndicator.setProgress(progress);
-
-        progressIndicator.setStyle(String.format("-fx-accent: %s;", colorSelection(progress)));
-    }
-
-    private String colorSelection(double progress) {
-        if (progress <= 0.25) {
-            return "Maroon";
-        }
-
-        if (progress <= 0.5) {
-            return "e20104";
-        }
-
-        if (progress <= 0.75) {
-            return "#d76e00";
-        }
-
-        if (progress < 0.9) {
-            return "#fdd524";
-        }
-
-        if (progress >= 0.9) {
-            return "DarkGreen";
-        }
-
-        return null;
     }
 
 }

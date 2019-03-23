@@ -15,9 +15,6 @@ import java.util.prefs.Preferences;
 
 public class RootController {
 
-    @FXML
-    private Label menuStat;
-
     private Main mainApp;
 
     private Repository repository;
@@ -76,8 +73,9 @@ public class RootController {
             node.put("score", "0");
         }
 
-
+        prefs.put("current", "0");
         mainApp.reset();
+
 
     }
 

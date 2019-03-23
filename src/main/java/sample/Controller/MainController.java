@@ -113,8 +113,8 @@ public class MainController {
                     resetUI();
                 } else {
                     currentNumberOfTask = getNumberOfTask(newValue);
-                    currentNumberOfVariant = 1;
-                    score = 0;
+                    currentNumberOfVariant = Integer.parseInt(prefs.node(String.valueOf(currentNumberOfTask)).get("variant", null));
+                    score = Integer.parseInt(prefs.node(String.valueOf(currentNumberOfTask)).get("score", null));
 
                     initUI();
                 }
@@ -162,10 +162,10 @@ public class MainController {
         String answer = textAnswer.getText().trim();
         String originalAnswer = repository.getTaskByNumber(currentNumberOfTask).getVariants().get(currentNumberOfVariant - 1).getAnswer();
         if (answer.equalsIgnoreCase(originalAnswer)) {
-            textResult.setText("Правильный ответ");
+            textResult.setText("Молодец! Правильный ответ");
             score++;
         } else {
-            textResult.setText("Неправильный ответ");
+            textResult.setText(String.format("Увы, в этот раз ты ошибся. Правильный ответ: %s", originalAnswer));
         }
     }
 

@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.RootController">
+<BorderPane prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.RootController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
                 <Menu mnemonicParsing="false" text="Файл">
                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleReset" text="Сбросить прогресс" />
                         <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Выход" />
                     </items>
                 </Menu>
-            <Menu mnemonicParsing="false">
-               <graphic>
-                  <Label fx:id="menuTheory" onMouseClicked="#handleTheory" text="Теория" />
-               </graphic>
-            </Menu>
+                <Menu mnemonicParsing="false">
+                    <graphic>
+                        <Label fx:id="menuTheory" onMouseClicked="#handleTheory" text="Теория" />
+                    </graphic>
+                </Menu>
                 <Menu mnemonicParsing="false">
                     <graphic>
                         <Label fx:id="menuStat" onMouseClicked="#handleStat" text="Статистика" />
                     </graphic></Menu>
-            <Menu mnemonicParsing="false">
-               <graphic>
-                  <Label fx:id="menuReset" onMouseClicked="#handleReset" text="Сбросить прогресс" />
-               </graphic>
-            </Menu>
                 <Menu mnemonicParsing="false" onAction="#handleAbout">
                     <graphic>
                         <Label onMouseClicked="#handleAbout" text="О программе" />
