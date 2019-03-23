@@ -23,12 +23,12 @@
       </Label>
       <ChoiceBox fx:id="choiceBox" layoutX="83.0" layoutY="28.0" prefHeight="25.0" prefWidth="470.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="28.0" />
       <Line endX="100.0" layoutX="316.0" layoutY="68.0" startX="-100.0" stroke="#0e064d" />
-      <Label fx:id="allAnswerText" alignment="CENTER_RIGHT" layoutX="465.0" layoutY="78.0" prefHeight="87.0" prefWidth="50.0" text="1" wrapText="true">
+      <Label fx:id="allAnswerText" alignment="CENTER_RIGHT" layoutX="465.0" layoutY="78.0" prefHeight="87.0" prefWidth="50.0" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="trueAnswerText" alignment="CENTER_RIGHT" layoutX="465.0" layoutY="152.0" prefHeight="81.0" prefWidth="50.0" text="2" textAlignment="RIGHT">
+      <Label fx:id="trueAnswerText" alignment="CENTER_RIGHT" layoutX="465.0" layoutY="152.0" prefHeight="81.0" prefWidth="50.0" textAlignment="RIGHT">
          <font>
             <Font size="24.0" />
          </font>

@@ -1,6 +1,7 @@
 package sample.Controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import sample.Main;
 import sample.model.Repository;
@@ -27,7 +28,12 @@ public class TheoryController {
     private void initialize() {
         Preferences prefs = Preferences.userRoot().node("ExamApp").node("tasks");
         int current = Integer.parseInt(prefs.get("current", "0"));
-        textTheory.setText(repository.getTaskByNumber(current).getTheory().trim());
+
+        if (current > 0) {
+            textTheory.setText(repository.getTaskByNumber(current).getTheory().trim());
+        }else {
+            textTheory.setText("Для начала, выберите задание!");
+        }
     }
 
 }

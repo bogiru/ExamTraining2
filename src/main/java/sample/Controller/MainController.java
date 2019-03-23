@@ -151,9 +151,6 @@ public class MainController {
     }
 
     private void initButtons() {
-        btnAnswer.setDisable(true);
-        btnNext.setDisable(true);
-
         btnAnswer.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> checkAnswer());
         btnNext.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> nextVariant());
     }
@@ -165,7 +162,7 @@ public class MainController {
             textResult.setText("Молодец! Правильный ответ");
             score++;
         } else {
-            textResult.setText(String.format("Увы, в этот раз ты ошибся. Правильный ответ: %s", originalAnswer));
+            textResult.setText(String.format("Увы, в этот раз ты ошибся, не отчаивайся! \n Правильный ответ: %s", originalAnswer));
         }
     }
 
@@ -176,7 +173,6 @@ public class MainController {
             textQuestion.setText(repository.getTaskByNumber(currentNumberOfTask).getVariants().get(currentNumberOfVariant - 1).getQuestion());
             textResult.setText("");
         } else {
-            currentNumberOfVariant = 1;
             textQuestion.setText("");
             textResult.setText("Вы закончили данное задание. Выберите другое!\nПравильных ответов: " + score);
             btnNext.setDisable(true);
@@ -215,13 +211,6 @@ public class MainController {
     public void reset() {
         chbTask.getSelectionModel().selectFirst();
         resetUI();
-    }
-
-
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
 }
